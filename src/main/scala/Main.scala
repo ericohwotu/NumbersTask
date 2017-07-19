@@ -20,23 +20,24 @@ object Main {
 
 
   def main(args: Array[String]): Unit = {
-    val num = getInput()
+    val num = getInput(0)
     println("Short format is: " + getFormat(num)(shortFormat))
     println("Long format is: " + getFormat(num)(longFormat))
   }
 
   @tailrec
-  def getInput(): BigInt = {
+  def getInput(count: Int): BigInt = {
 
-    println("please input a number: ")
-
-    val input = util.Try(BigInt(readLine()))
+    val input = util.Try(BigInt(readLine("please input a number: ")))
 
     input match {
       case util.Success(v) => v
       case util.Failure(e) =>
         println("Error invalid value")
-        getInput()
+        count + 1 match{
+          case x if x>=3 => 0
+          case x => getInput(x)
+        }
     }
   }
 

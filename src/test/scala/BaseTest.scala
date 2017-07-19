@@ -1,5 +1,9 @@
+import java.io.StringBufferInputStream
+
 import Main._
 import org.scalatest.{FlatSpec, Matchers}
+
+import scala.Console.setIn
 
 /**
   * Created by Administrator on 18/07/2017.
@@ -59,5 +63,20 @@ class BaseTest extends FlatSpec with Matchers {
     shortFormat(3) should be ("billion,")
   }
 
+  "get input" should "return 0 if an asd is submitted" in {
+    val code = "asd"
+    val in: StringBufferInputStream = new StringBufferInputStream(code)
+    setIn(in)
+
+    getInput(0) should be (0)
+  }
+
+  "mian" should "should return no errors" in {
+    val code = "1000000000234"
+    val in: StringBufferInputStream = new StringBufferInputStream(code)
+    setIn(in)
+
+    main(Array())
+  }
 
 }
