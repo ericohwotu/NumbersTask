@@ -1,4 +1,4 @@
-import java.io.StringBufferInputStream
+import java.io.{ByteArrayInputStream, StringBufferInputStream}
 
 import Main._
 import org.scalatest.{FlatSpec, Matchers}
@@ -54,18 +54,18 @@ class BaseTest extends FlatSpec with Matchers {
 
 
   "longformat" should "milliard, if 1 is passed through" in {
-    val number = 1
-    longFormat(3) should be ("milliard,")
+    val number = 3
+    longFormat(number) should be ("milliard,")
   }
 
   "shortformat" should "thousand if 3 is passed through" in {
     val number = 3
-    shortFormat(3) should be ("billion,")
+    shortFormat(number) should be ("billion,")
   }
 
   "get input" should "return 0 if an asd is submitted" in {
     val code = "asd"
-    val in: StringBufferInputStream = new StringBufferInputStream(code)
+    val in = new ByteArrayInputStream(code.getBytes("UTF-8"))
     setIn(in)
 
     getInput(0) should be (0)
@@ -73,7 +73,7 @@ class BaseTest extends FlatSpec with Matchers {
 
   "mian" should "should return no errors" in {
     val code = "1000000000234"
-    val in: StringBufferInputStream = new StringBufferInputStream(code)
+    val in = new ByteArrayInputStream(code.getBytes("UTF-8"))
     setIn(in)
 
     main(Array())
