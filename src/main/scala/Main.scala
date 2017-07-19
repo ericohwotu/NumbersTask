@@ -30,11 +30,11 @@ object Main {
 
     println("please input a number: ")
 
-    try {
-      val in = BigInt(readLine())
-      in
-    }catch {
-      case _: Throwable =>
+    val input = util.Try(BigInt(readLine()))
+
+    input match {
+      case util.Success(v) => v
+      case util.Failure(e) =>
         println("Error invalid value")
         getInput()
     }
